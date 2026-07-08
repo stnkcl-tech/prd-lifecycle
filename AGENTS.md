@@ -106,6 +106,21 @@ For non-trivial work:
 - Report new information, blockers, scope changes, and verification results.
 - When blocked, state the blocker, evidence, and smallest next step; if two attempts on the same hypothesis failed, switch strategy per the stuck-loop policy instead of retrying blindly.
 
+## Local Development Server Persistence
+
+When the user asks to **build and run locally**, **run the web locally**, **serve locally**, or any equivalent phrase, start the local development server in a way that survives the agent's tool timeout and remains available for the user to view in their browser.
+
+- **Do not** rely solely on `Shell(run_in_background=true)` for long-running servers — background tasks may be killed after a timeout.
+- **Do** detach the server process using `nohup` (or equivalent) so it is re-parented to PID 1 and keeps running after the shell tool returns.
+- Preferred pattern:
+  ```bash
+  cd <project-dir>
+  nohup <server-command> > /tmp/<project>-server.log 2>&1 &
+  echo $! > /tmp/<project>-server.pid
+  ```
+- Verify the server is reachable with `curl` before reporting it ready.
+- Report the URL, PID, and log file path to the user.
+
 ---
 
 # Directory Structure
