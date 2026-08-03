@@ -25,9 +25,9 @@ venv/
 dist/
 build/
 
-# ── Private research & temporary files ─────────────────────
-research/
-projects/bugs/
+# ── Workspace-specific files (local-only) ──────────────────
+where-we-left-off.md
+ai-tools.code-workspace
 
 # ── Individual project repositories ────────────────────────
 # Each project under active/experiments/archive is its own git repo.

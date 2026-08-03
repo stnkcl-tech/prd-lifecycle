@@ -121,6 +121,22 @@ When the user asks to **build and run locally**, **run the web locally**, **serv
 - Verify the server is reachable with `curl` before reporting it ready.
 - Report the URL, PID, and log file path to the user.
 
+## Handover Protocol
+
+When the user says "summarize what we've been doing", "save for now", or "continue later", the agent must:
+1. **Ask which scope the handover covers** — in this multi-repo workspace, a session can touch a project, the workspace root, or both. Ask: project-related, root-related, or both?
+2. Ask the user what the next item to discuss is.
+3. Generate or update the relevant `where-we-left-off.md` handover file(s) — one at the **project's root** for project scope, and one at the **workspace root** for root scope. Each file summarizes:
+   - What has been accomplished in the current session.
+   - The current status of the active tasks.
+   - The next items to be groomed or implemented.
+
+**Scope rules:**
+- **Project handover** — kept in the project repo, is committed/pushed with the project, and contains project-specific details. It is read first when starting work on that project.
+- **Root handover** — kept at the workspace root, is **gitignored and local-only** so the workspace root stays fork-clean and project-agnostic. It only covers workspace-level changes, not project specifics.
+
+The `where-we-left-off.md` file will be rewritten on every summary/save/continue request.
+
 ---
 
 # Directory Structure
@@ -230,11 +246,12 @@ Each project should follow this layout:
 
 ```
 projects/experiments/<project-name>/
-├── AGENTS.md          # Project-specific agent instructions (inherits root)
-├── README.md          # Public-facing project description
-├── .gitignore         # Git ignore rules
-├── research/          # Research notes, drafts, data (gitignored by default)
-└── src/               # Software source code (committed)
+├── AGENTS.md              # Project-specific agent instructions (inherits root)
+├── README.md              # Public-facing project description
+├── .gitignore             # Git ignore rules
+├── where-we-left-off.md   # Handover file (see Handover Protocol)
+├── research/              # Research notes, drafts, data (gitignored by default)
+└── src/                   # Software source code (committed)
 ```
 
 ## Git Policy

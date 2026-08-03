@@ -96,6 +96,13 @@ These skills are reference material. Agents use them to stay consistent across p
 - Each project is its own git repository. This keeps projects portable.
 - The root workspace ignores individual project contents so they don't get mixed together.
 
+## Handing off between sessions
+
+Each project keeps a `where-we-left-off.md` at its root so the next session can pick up where the last one ended. Workspace-level handover lives at the root too, but it is gitignored and local-only so the shared repo stays fork-clean and project-agnostic.
+
+- Say **"summarize what we've been doing"**, **"save for now"**, or **"continue later"** and the agent will rewrite the file(s) with: what was accomplished, current task status, and what's next.
+- Starting a session? Ask the agent to read the relevant `where-we-left-off.md` first instead of re-explaining context.
+
 ## Workspace rules
 - **Ask first, assume never.** Don't guess requirements.
 - **Start small.** Build the smallest testable version.
