@@ -27,7 +27,7 @@ The workspace contains three main asset groups:
 
 These rules apply to all agents operating anywhere in this workspace unless overridden by a project-level `AGENTS.md`.
 
-1. **Ask first, assume never**. Ask clarifying questions before making assumptions about requirements, constraints, or user intent.
+1. **Ask first, assume never**. Ask clarifying questions before making assumptions about requirements, constraints, or user intent. Whenever the user provides an unclear, vague, or ambiguous instruction anywhere in this workspace, **always ask which project or component we are working on** before proceeding or taking action.
 2. **Simplicity over cleverness**. Prefer simple, minimal solutions. Avoid over-engineering.
 3. **Minimal changes**. Make the smallest change necessary to achieve the goal. Do not refactor unrelated code.
 4. **Token efficiency**. Reference shared resources (skills, configs) from the root rather than duplicating them.
@@ -135,7 +135,9 @@ When the user says "summarize what we've been doing", "save for now", or "contin
 - **Project handover** — kept in the project repo, is committed/pushed with the project, and contains project-specific details. It is read first when starting work on that project.
 - **Root handover** — kept at the workspace root, is **gitignored and local-only** so the workspace root stays fork-clean and project-agnostic. It only covers workspace-level changes, not project specifics.
 
-The `where-we-left-off.md` file will be rewritten on every summary/save/continue request.
+**Section Editing & Next Up Rules:**
+- **Edit Only Assigned Agent Session**: When updating `where-we-left-off.md`, the agent must **ONLY edit the session section it is responsible for** (e.g., `## 1. Agent Session` or the section assigned to its agent identity). Never edit, overwrite, or remove another agent's session section.
+- **Preserve & Append Next Up**: When updating the `### Next up` list, **NEVER replace or overwrite existing items**. Always add or append new items to the existing list so previously planned tasks remain intact.
 
 ---
 
